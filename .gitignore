@@ -35,3 +35,9 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Ignore .lock. files
+# We ignore them as this repository are meant as examples and we do not want to
+# share the state in the repository. This is not a best practice and should be
+# avoided in a real-world scenario.
+*.lock.hcl
