@@ -1,3 +1,17 @@
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 3.0"
+    }
+  }
+}
+
+provider "azurerm" {
+  skip_provider_registration = true
+  features {}
+}
+
 # Networking
 resource "azurerm_virtual_network" "vnet" {
   name                = var.vnet_name
