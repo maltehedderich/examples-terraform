@@ -47,3 +47,27 @@ variable "ssh_public_key" {
   type        = string
   default     = "~/.ssh/id_ed25519.pub"
 }
+
+variable "vmi_publisher" {
+  description = "Publisher of the VM image"
+  type        = string
+  default     = "Canonical"
+}
+
+variable "vmi_offer" {
+  description = "Offer of the VM image"
+  type        = string
+  default     = "ubuntu-24_04-lts"
+}
+
+variable "vmi_sku" {
+  description = "SKU of the VM image"
+  type        = string
+  default     = "server"
+}
+
+variable "vmi_version" {
+  description = "Version of the VM image"
+  type        = string
+  default     = "latest"
+}
