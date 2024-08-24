@@ -33,7 +33,7 @@ resource "azurerm_network_security_group" "nsg" {
   resource_group_name = var.resource_group_name
 
   security_rule {
-    name                       = "SSH Initial"
+    name                       = "SSH-initial"
     priority                   = 1001
     direction                  = "Inbound"
     access                     = "Allow"
@@ -57,7 +57,7 @@ resource "azurerm_network_security_group" "nsg" {
   }
 
   security_rule {
-    name                       = "ACE Agent App"
+    name                       = "ACE-Agent-App"
     priority                   = 1003
     direction                  = "Inbound"
     access                     = "Allow"
@@ -121,10 +121,10 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   source_image_reference {
-    publisher = "Canonical"
-    offer     = "ubuntu-24_04-lts"
-    sku       = "server"
-    version   = "latest"
+    publisher = var.vmi_publisher
+    offer     = var.vmi_offer
+    sku       = var.vmi_sku
+    version   = var.vmi_version
   }
 
   identity {
