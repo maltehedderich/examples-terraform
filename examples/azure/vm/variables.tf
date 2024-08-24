@@ -3,6 +3,21 @@ variable "resource_group_name" {
   type        = string
 }
 
+variable "vm_count" {
+  description = "Number of VMs to create"
+  type        = number
+}
+
+variable "vm_size" {
+  description = "Size of the VM"
+  type        = string
+}
+
+variable "admin_username" {
+  description = "Admin username for the VMs"
+  type        = string
+}
+
 variable "location" {
   description = "Azure region"
   type        = string
@@ -25,21 +40,6 @@ variable "nsg_name" {
   description = "Name of the existing network security group"
   type        = string
   default     = "dev-nsg" 
-}
-
-variable "vm_count" {
-  description = "Number of VMs to create"
-  type        = number
-}
-
-variable "vm_size" {
-  description = "Size of the VM"
-  type        = string
-}
-
-variable "admin_username" {
-  description = "Admin username for the VMs"
-  type        = string
 }
 
 variable "ssh_public_key" {
