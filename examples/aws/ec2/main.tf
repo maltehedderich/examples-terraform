@@ -3,21 +3,6 @@ provider "aws" {
   region = var.region
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-  owners      = ["099720109477"] # Canonical
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-}
-
 # Create a VPC
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
@@ -36,9 +21,10 @@ resource "aws_internet_gateway" "main" {
 resource "aws_subnet" "main" {
   vpc_id     = aws_vpc.main.id
   cidr_block = "10.0.1.0/24"
+  availability_zone = var.availability_zone
   
   tags = {
-    Name = "Main Subnet"
+    Name = "EC2 Subnet"
   }
 }
 
@@ -72,6 +58,14 @@ resource "aws_security_group" "allow_ssh" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    description = "Allow 9001 from home network"
+    from_port   = 9001
+    to_port     = 9001
+    protocol    = "tcp"
+    cidr_blocks = var.ingress_9001
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -87,9 +81,10 @@ resource "aws_key_pair" "deployer" {
 
 # Create an EC2 instance
 resource "aws_instance" "ubuntu" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
-  key_name      = aws_key_pair.deployer.key_name
+  ami               = var.ami_id
+  instance_type     = var.instance_type
+  key_name          = aws_key_pair.deployer.key_name
+  availability_zone = var.availability_zone
 
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
   subnet_id              = aws_subnet.main.id
