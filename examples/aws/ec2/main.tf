@@ -57,15 +57,7 @@ resource "aws_security_group" "allow_ssh" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-  ingress {
-    description = "Allow 9001 from home network"
-    from_port   = 9001
-    to_port     = 9001
-    protocol    = "tcp"
-    cidr_blocks = var.ingress_9001
-  }
-
+  
   egress {
     from_port   = 0
     to_port     = 0
