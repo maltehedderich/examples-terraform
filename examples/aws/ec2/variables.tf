@@ -21,5 +21,5 @@ variable "ssh_public_key" {
 
 variable "ami_id" {
   description = "The AMI ID to use for the EC2 instance"
-  default     = "ami-02f87292a2c735fce"
+  default     = "ami-0e04bcbe83a83792e"
 }
